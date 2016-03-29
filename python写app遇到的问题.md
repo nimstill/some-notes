@@ -25,7 +25,8 @@ Now that python is installed, open the Command line and make sure python is avai
 
 现实是type2
 
-This has been fixed. It was a problem with the website that served the gstreamer wheels. Also, we enabled https for kivy.org so the command to use is now \n
+This has been fixed. It was a problem with the website that served the gstreamer wheels. Also, we enabled https for kivy.org so the command to use is now 
+
     `python -m pip install docutils pygments pypiwin32 kivy.deps.sdl2 kivy.deps.glew kivy.deps.gstreamer --extra-index-url https://kivy.org/downloads/packages/simple/`
 
 
