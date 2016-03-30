@@ -9,7 +9,8 @@
 
 配置环境中android SDK Tools 可在以下链接中下载
 
-http://developer.android.com/intl/zh-cn/sdk/installing/index.html?pkg=tools
+[here](http://developer.android.com/intl/zh-cn/sdk/installing/index.html?pkg=tools)
+
 ---
 安卓Android SDK可在这个网站上找到解决方案
     http://www.androiddevtools.cn/
