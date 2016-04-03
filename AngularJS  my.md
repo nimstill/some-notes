@@ -15,3 +15,10 @@ AngularJS 应用组成如下：
 View(视图), 即 HTML。
 Model(模型), 当前视图中可用的数据。
 Controller(控制器), 即 JavaScript 函数，可以添加或修改属性。
+scope 
+
+所有的应用都有一个 $rootScope，它可以作用在 ng-app 指令包含的所有 HTML 元素中。
+$rootScope 可作用于整个应用中。是各个 controller 中 scope 的桥梁。用 rootscope 定义的值，可以在各个 controller 中使用。
+
+ AngularJS 控制器 控制 AngularJS 应用程序的数据。
+ AngularJS 控制器是常规的 JavaScript 对象。
