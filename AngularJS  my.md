@@ -42,4 +42,15 @@ AngularJS $timeout 服务对应了 JS window.setTimeout 函数。
 ng-repeat 指令是通过数组来循环 HTML 代码来创建下拉列表，但 ng-options 指令更适合创建下拉列表，它有以下优势：
 使用 ng-options 的选项的一个对象， ng-repeat 是一个字符串。
 
+跨域 HTTP 请求
+如果你需要从不同的服务器（不同域名）上获取数据就需要使用跨域 HTTP 请求。
+跨域请求在网页上非常常见。很多网页从不同服务器上载入 CSS, 图片，Js脚本等。
+在现代浏览器中，为了数据的安全，所有请求被严格限制在同一域名下，如果需要调用不同站点的数据，需要通过跨域来解决。
+以下的 PHP 代码运行使用的网站进行跨域访问。
+header("Access-Control-Allow-Origin: *");
+
+ng-disabled 指令直接绑定应用程序数据到 HTML 的 disabled 属性。
+ng-disabled 指令绑定应用程序数据 "mySwitch" 到 HTML 的 disabled 属性。
+ng-model 指令绑定 "mySwitch" 到 HTML input checkbox 元素的内容（value）
+
 
