@@ -1,0 +1,38 @@
+<div ng-app="myapp" ng-controller="myCtrl"
+>
+<input type="text" ng-model="firstName"></input>
+<input type="text" ng-model="lastName"></input>
+{{firstName + "" + lastName}}
+
+
+	
+</div>
+
+<script type="text/javascript">
+	var app = angular.module('myapp', [])
+	app.controller('myCtrl',function($scope){
+		$scope.firstName = "John";
+		$scope.lastName = "Doe";
+	});
+</script>
+
+
+<div ng-app="myApp" ng-controller="myCtrl">
+{{myWelcome}
+}
+	
+</div>
+
+
+
+<script type="text/javascript">
+	var app = angular.module('myApp', []);
+
+	appcontroller('myCtrl', function($scope, $http) {
+		$http.get('welcome.htm').then(function(response) {
+			$scope.myWelcome = response.data;
+		});
+	});
+
+</script>
+
