@@ -36,3 +36,21 @@
 
 </script>
 
+var app = angular.module('myapp', []);
+app.controller('myCtrl', function($scope, $interval) {
+	$scope.theTime = new Date().toLocaleTimeString();
+	
+})
+<div ng-app="myApp" ng-controller="myCtrl">
+<select ng-model="selectedName" ng-options="x for x in names"></select>
+	
+</div>
+
+<script type="text/javascript">
+	
+	var app = angular.module('myApp', []);
+	app.controller('myCtrl', function($scope) {
+		$scope.names = ["google", "Runoob", "Taobao"];
+	});
+
+</script>

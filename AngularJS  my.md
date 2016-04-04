@@ -33,3 +33,13 @@ AngularJS 使用$scope 对象来调用控制器。
 ng-model 指令绑定输入域到控制器的属性（firstName 和 lastName）。
 
 
+有个 $location 服务，它可以返回当前页面的 URL 地址
+$http 是 AngularJS 应用中最常用的服务。服务向服务器发送请求，应用响应服务器传送过来的数据。
+AngularJS 会一直监控应用，处理事件变化， AngularJS 使用 $location 服务比使用 window.location 对象更好。
+
+AngularJS $timeout 服务对应了 JS window.setTimeout 函数。
+
+ng-repeat 指令是通过数组来循环 HTML 代码来创建下拉列表，但 ng-options 指令更适合创建下拉列表，它有以下优势：
+使用 ng-options 的选项的一个对象， ng-repeat 是一个字符串。
+
+
