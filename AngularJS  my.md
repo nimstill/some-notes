@@ -53,4 +53,15 @@ ng-disabled 指令直接绑定应用程序数据到 HTML 的 disabled 属性。
 ng-disabled 指令绑定应用程序数据 "mySwitch" 到 HTML 的 disabled 属性。
 ng-model 指令绑定 "mySwitch" 到 HTML input checkbox 元素的内容（value）
 
+模块定义了一个应用程序。
+模块是应用程序中不同部分的容器。
+模块是应用控制器的容器。
+控制器通常属于一个模块。
+
+在模块定义中 [] 参数用于定义模块的依赖关系。
+中括号[]表示该模块没有依赖，如果有依赖的话会在中括号写上依赖的模块名字。
+
+JavaScript 中应避免使用全局函数。因为他们很容易被其他脚本文件覆盖。
+AngularJS 模块让所有函数的作用域在该模块下，避免了该问题。
+
 
