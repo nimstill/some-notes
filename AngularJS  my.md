@@ -64,4 +64,19 @@ ng-model 指令绑定 "mySwitch" 到 HTML input checkbox 元素的内容（value
 JavaScript 中应避免使用全局函数。因为他们很容易被其他脚本文件覆盖。
 AngularJS 模块让所有函数的作用域在该模块下，避免了该问题。
 
+novalidate 属性是在 HTML5 中新增的。禁用了使用浏览器的默认验证
+
+$dirty  表单有填写记录
+$valid  字段内容合法的
+$invalid    字段内容是非法的
+$pristine   表单没有填写记录
+
+single page web application，SPA
+
+ng-app 指令位于应用的根元素下。
+对于单页Web应用（single page web application，SPA），应用的根通常为 <html> 元素。
+一个或多个 ng-controller 指令定义了应用的控制器。每个控制器有他自己的作用域：: 定义的 HTML 元素。
+AngularJS 在 HTML DOMContentLoaded 事件中自动开始。如果找到 ng-app 指令 ， AngularJS 载入指令中的模块，并将 ng-app 作为应用的根进行编译。
+应用的根可以是整个页面，或者页面的一小部分，如果是一小部分会更快编译和执行。
+
 
