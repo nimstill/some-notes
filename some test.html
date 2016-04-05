@@ -54,3 +54,38 @@ app.controller('myCtrl', function($scope, $interval) {
 	});
 
 </script>
+
+table, th , td {
+	border: 1px solid grey;
+	border-collapse : collapse;
+	padding:5px;
+}
+
+table tr :nth-child(odd) {
+	backgroubnd-color: #fififi;
+}
+
+
+ng-if="$odd"
+
+<p>
+	yonghuming: <br>
+	<input type="text" name="user" ng-model="user" required></input>
+	<span style="color: red" ng-show="myFrom.user.$dirty && myForm.user.$invalid">
+		<span ng-show="myForm.user.$error.required">yonghumingbixu</span>
+	</span>
+</p>
+
+<p>
+	youxiang:<br>
+	<input type="email" name="email" ng-model="email" required>
+		
+</p>
+
+<script type="text/javascript">
+	var app = angualr.module('myApp',[]);
+	app.controller('validateCtrl', function($scope) {
+		$scope.user = "John"
+		$scope.enail = 'john.de.@gmail.com';
+	});
+</script>
