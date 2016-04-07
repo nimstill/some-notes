@@ -80,3 +80,12 @@ AngularJS 在 HTML DOMContentLoaded 事件中自动开始。如果找到 ng-app 
 应用的根可以是整个页面，或者页面的一小部分，如果是一小部分会更快编译和执行。
 
 
+
+
+#ionic
+
+ion-side-menus： 是一个带有边栏菜单的容器，可以通过点击按钮或者滑动屏幕来展开菜单。
+ion-side-menu-content：展示主要内容的容器，可以通过滑动屏幕来展开menu。
+ion-side-menu：存放侧边栏的容器。
+
+
