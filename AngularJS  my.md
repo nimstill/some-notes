@@ -96,3 +96,8 @@ browser.min.js - 用于将 JSX 语法转为 JavaScript 语法
 
 如果我们需要使用 JSX，则 <script> 标签的 type 属性需要设置为 text/babel
 
+
+
+#取消淘宝镜像
+
+###在npm目录下面找到文件：npmrc
