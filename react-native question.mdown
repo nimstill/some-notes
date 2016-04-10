@@ -24,3 +24,12 @@ react-native run-android
 打开Chrome，访问 http://localhost:8081/debugger-ui，应当能看到一个页面。按F12打开开发者菜单。
 
 在模拟器或真机菜单中选择Debug JS，即可开始调试。           
+
+完了
+被卡住了
+！！！
+
+Downloading https://services.gradle.org/distributions/gradle-2.4-all.zip
+
+自己的网络明明可以访问
+what？
