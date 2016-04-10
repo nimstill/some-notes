@@ -10,6 +10,7 @@ npm install -g react-native-cli
 react-native init projectName
 运行packger
 react-native start **注意**不可先运行run android```
+    FYI 在这地方卡住了好久···
 
 ###接下来  安卓运行
 保持packager开启，另外打开一个命令行窗口，然后在工程目录下运行
