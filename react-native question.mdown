@@ -81,3 +81,6 @@ resolve：
 
 just go to Tools -> Android -> Android SDK Manager, then check “Android Support Repository” and “Android Support Library” under “Extra” and install them.
 
+连接wifi时遇到问题
+腾讯wifi无法链接到服务器
+360wifi可以
