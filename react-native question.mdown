@@ -55,3 +55,29 @@ what？
 ···············
 
 ###over
+
+
+---
+happy to say maybe OK 
+
+question:
+
+Error:A problem occurred configuring project ':app'.
+
+> Could not resolve all dependencies for configuration ':app:_debugCompile'.
+
+   > Could not resolve com.android.support:appcompat-v7:21.+.
+
+     Required by:
+
+         Exam:app:unspecified
+
+      > Failed to list versions for com.android.support:appcompat-v7.
+
+         > Unable to load Maven meta-data from https://jcenter.bintray.com/com/android/support/appcompat-v7/maven-metadata.xml.
+         > 
+
+resolve：
+
+just go to Tools -> Android -> Android SDK Manager, then check “Android Support Repository” and “Android Support Library” under “Extra” and install them.
+
