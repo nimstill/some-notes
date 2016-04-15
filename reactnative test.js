@@ -68,3 +68,53 @@ var GithubFinder = React.createClass({
 });
 
 
+//zujianzhuangtai
+
+var GithubFinder = React.createClass({
+    ...
+    getInitialState: function() {
+        return {
+            dataSource: new LIstView.DataSource({
+                rowHasChanged: (row1, row2) => row1 !== row2,
+            }),
+        };
+    },
+
+});
+
+
+//meige shuju dianyuan
+
+renderRow: function(repo: Object) {
+    return (
+        <View>
+            <View style={styles.row}>
+                <Text>
+                    {repo.name}
+                </Text>
+            </View>
+        </View>
+    );
+},
+
+row: {
+    alignItems: 'center',
+    backgroundColor: 'white',
+    flexDitection: 'row',
+    padding: 5,
+},
+cellBorder: {
+    backgroundColor: 'rgba(0,0,0,0.1)',
+    height: 1,
+    marginLeft: 4,
+},
+
+ 
+
+ *****************************************************
+
+
+ shiyongdaohang
+
+
+ 
