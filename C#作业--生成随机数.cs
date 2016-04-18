@@ -68,3 +68,41 @@ while (now != icount)
         Console.WriteLine(code.ToString());
     }
 }
+
+
+//试图优化
+
+
+        //防伪码长度为10，生成10000个防伪码
+int len;
+int icount;
+
+len = Convert.ToInt32(Console.ReadLine());
+icount = Convert.ToInt32(Console.ReadLine());
+
+for (int n = 0; n < icount; n++)
+{
+    string strTableChar = "0123456789ABCDEFGHJKLMNPQRSTUVWXYZ";  //34
+    StringBuilder ma = new StringBuilder();
+
+    for (int i = 0; i < len; i++)
+    {
+        ma.Append(strTableChar[new Random(Guid.NewGuid().GetHashCode()).Next(34)]);
+    }
+    Console.WriteLine(ma.ToString());
+}
+
+
+int n, i;
+
+for(n = 0; n<len; n++)
+{
+    string strTableChar = "0123456789ABCDEFGHJKLMNPQRSTUVWXYZ";  //34
+    StringBuilder ma = new StringBuilder();
+
+    for (i = 0; i<icount; i++) 
+    {
+        ma.Append(strTableChar[new Random(Guid.NewGuid().GetHashCode()).Next(34)]);
+        Console.WriteLine(ma.ToString());
+    }
+}
