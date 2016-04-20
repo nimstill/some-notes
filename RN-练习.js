@@ -67,4 +67,52 @@ getJSON('story.json').thn(function(story) {
     document.querySelector('.spinnner').style.display = 'none';
 });
 
+function apawn(generatorFunc) {
+    function continuer(verb, arg) {
+        var result;
+        try {
+            result = gener5ator[verb] (arg);
+        } catch (err) {
+            return Promise.reject(err);
+        }
+        if (result.done) {
+            return result.value;
+        } else {
+            return Promise.resolve(result.value).then(onFulfilled,
+                onRejected);
+        }
+    }
+    var generator = generatorFunc();
+    var onFulfilled = continuer.bind(continuer, "next");
+    var onRejected = continuer.bind(continuer, "throw");
+    return onFulfilled();
+}
+
+
+spawn (function *() {
+    try {
+        //'yield' 执行一个异步的等待，
+        //返回这个Promise 的结果
+        let story = yield getJSon('story.json');
+        addHtmlToPage(story.heading);
+
+        //把章节 url 数组转换成对应的Promise 数组
+        //保证所有内容并行加载
+        
+        let chapterPromise = story.chapoterUrls.map(getJSON);
+
+        for (let chapterPromise of chapterPromise) {
+            let chapter = yield chapterPromise;
+            addHtmlToPage(chapter.html);
+        }
+
+        addTextToPage("All done");
+    }
+    catch (err) {
+        addTextToPage("Argh, broken: " + err.message);
+    }
+    document.querySelector('.spinner').style.display = 'none';
+});
+
+
 
