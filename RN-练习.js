@@ -115,4 +115,44 @@ spawn (function *() {
 });
 
 
+//xmlhttprequest
+
+function reqListener() {
+    car data = JSON.parse(this.responseText);
+    console.log(data);
+}
+
+function reError(err) {
+    console.log('Fetch Error :-S',err);
+}
+
+var oReq = new XMLHttpRequest();
+oReq.onload = reqListener;
+oReq.onerror = reqError;
+oReq.open('get', './api/some.json', true);
+oReq.send();
+
+
+//fetch
+
+fetch('./api/some.json')
+.then(
+    function(response) {
+        if (response.status !== 200) {
+            console.log('Looks like there was a problem. Status Code: '
+                +
+                reponse.status);
+            return;
+        }
+
+        //chulixiangyingzhongde 文本信息
+        response.json().then(function(data) {
+            console.log(data);
+        });
+    }
+)
+.catch(function(err) {
+    console.log('Fetch Error :-S', err);
+});
+
 
