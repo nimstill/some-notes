@@ -155,4 +155,10 @@ fetch('./api/some.json')
     console.log('Fetch Error :-S', err);
 });
 
+当我们发送fetch请求时，返回的response.type 可能 basic cors opaque 
+
+basic 没有任何限制可以查看响应的任何数据
+跨域资源  CROS类型的头部，并且响应类型为“CORS” 访问有限制
+
+opaque 也是跨域资源的时候响应的 我们不能读取返回的数据也不能查看请求的状态码
 
