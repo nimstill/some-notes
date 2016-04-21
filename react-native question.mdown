@@ -84,3 +84,49 @@ just go to Tools -> Android -> Android SDK Manager, then check “Android Suppor
 连接wifi时遇到问题
 腾讯wifi无法链接到服务器
 360wifi可以
+
+
+
+###MVC 的架构：
+
+Model 是数据
+View 是数据在 app 中的表现
+Controller 处理数据交互逻辑
+
+    class Example extends React.Component {
+        render() {
+            // 使用现有数据呈现 View，有可能是一个窗体
+            // 窗体将数据提交给 handleSubmit 函数
+        }
+
+        handleSubmit(e) {
+            // 处理数据，controller 的逻辑
+        }
+    };
+
+每个 React 组件都有两种类型的数据，他们拥有不一样的角色：
+props 是在组件创建时就传入的数据，是不可变的。
+state 是组件可变的数据。
+
+为了减少重复，建议 app 组件层级关系中最高层级的父组件（有时称为容器组件）拥有 state ，然后使用 props 向下传递给子组件。这样数据单向地从上游往下游流动，使得整个流程很快，呈现模块化。
+
+Redux 是一个实现了 Flux 架构，但又从 Flux 中剥离的框架。react-redux 包提供的官方的数据绑定实现 使得和 React 的集成变得很简单。
+Redux 中没有 Dispatcher，并且对于整个 app 的 state，只有一个 Store。
+那么 Redux 中的数据流到底是怎样的？详细的部分我们下面后阐述，现在让我们看看大致的流程：
+React 可以触发 Action，比如按钮点击按钮。
+Action 是对象，包含一个类型以及相关的数据，通过 Store 的 dispatch() 函数发送到 Store。
+Store 接收 Action 的数据并将其连同当前的 state 树（state 树 是包含所有 state 的一种特殊的数据结构，是一个单一的对象）发给 Reducer。
+Reducer 是一个 pure function，它接收一个之前的 state 和一个 Action；并基于此 Action 将会产生的影响，返回一个新的 state。一个 app 可以包含一个 Reducer，但大部分的 app 最后会包含多个，每个处理 state 中不同的部分，下文 会提到。
+Store 接收到新的 state，并替换当前的。
+当 state 变化时，Store 触发 事件。
+任何 订阅了事件 的组件 从 Store 中提取新的 state。
+组件使用新的 state 进行更新。
+
+---
+
+我们通过 JavaScript 对象传递一些方法到 React.createClass() 来创建一个新的 React 组件。其中最重要的方法是 render ，该方法返回一颗 React 组件树，这棵树最终将会渲染成 HTML 。
+
+这里的 <div> 标签不是真正的 DOM 节点；他们是 React div 组件的实例。你可以认为这些标签就是一些标记或者数据， React 知道如何处理它们。React 是安全的。我们不生成 HTML 字符串，因此默认阻止了 XSS 攻击。
+
+没必要返回基本的 HTML 结构，可以返回一个你（或者其他人）创建的组件树。而这就是让 React 变得组件化 的特性：一个前端可维护性的关键原则。
+
