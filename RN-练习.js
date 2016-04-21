@@ -161,4 +161,24 @@ source 'https://github.com/CocoaPods/Specs.git'
 platform :ios,'7.0'
 pod 'Google-Mobile-Ads-SDK', '~>7.0'
 
-heiheihei
+/*
+var Thing = React.createClass ({
+    render: function() {
+        return (
+            <p>{this.props.name}</p>
+        );
+    }
+});
+
+var ThingList = React.createClass({
+    render: function() {
+        return (
+            <h1>my things:</h1>
+        );
+    }
+});
+
+*/
+
+
+
