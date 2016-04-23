@@ -178,7 +178,7 @@ var ThingList = React.createClass({
     }
 });
 
-*/
+
 
 
 var CommentBox = React.createClass({
@@ -194,5 +194,65 @@ React.render(
     <CommentBox />,
     document.getElementById('content')
 );  
+
+*/
+
+
+var CommentBox = React.createClass({
+    render: function(){
+        return (
+            <div className = "commentBox">
+            <h1>Comments</h1>
+            <commentlist data={this.props.data} />
+
+
+            );
+    }
+});
+
+ReactDom.render(
+    <CommentBox data={data}>,
+    document.getElementById('comtent')
+);
+
+
+//从服务器获取数据让我们用从服务器动态获取的数据替换硬编码的数据。我们会
+//删掉 data 属性，使用一个 URL 来获取数据：
+
+ReactDOM.render(
+    <CommentBox url="/api/comments" />,
+    document.getElementById('content')
+);
+
+var commentForm = React.createClass({
+    e.preventDefault();
+    var author = this.refs.author.value.trim();
+    var text = this.refs.text.value.trim();
+    if (!text || !author) {
+        return;
+    }
+    this.refs.author.value = '';
+    this.refs.text.value = '';
+    return;
+}),
+
+
+var HelloWorld = React.createClass({
+  render: function() {
+    return (
+      <p>
+        Hello, <input type="text" placeholder="Your name here" />!
+        It is {this.props.date.toTimeString()}
+      </p>
+    );
+  }
+});
+
+setInterval(function() {
+  React.render(
+    <HelloWorld date={new Date()} />,
+    document.getElementById('example')
+  );
+}, 500);
 
 
