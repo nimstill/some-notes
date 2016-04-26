@@ -4,4 +4,9 @@ react.js使用jsx语法，script标签的type值必须为“text/jsx“！ 在js
 
    React.createClass是React创建组件的方法，组件标签必须首字母大写， 组件中包含：     1. this.props对象，用来获取属性值, {…this.props}用来复制组件的所有属性
 
+   wobuyuanrangni yigeren 但你的身边从来不曾缺人···
+
+   farewell  我的大学
+
+
    
