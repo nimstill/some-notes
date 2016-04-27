@@ -21,6 +21,26 @@ react.js使用jsx语法，script标签的type值必须为“text/jsx“！ 在js
             }
      })
 
-  4.getDefaultProps方法用来设置组件属性的默认值
+4.getDefaultProps方法用来设置组件属性的默认值
 
-  
+5.ref用来获取真实的DOM：  
+6.this.state，用来改变组件的状态，以便和用户交流，getInitialState方法用于定义初始状态，返回一个对象！这个对象可以通过this.state属性读取！
+
+由于 this.props 和 this.state 都用于描述组件的特性，可能会产生混淆。一个简单的区分方法是，this.props 表示那些一旦定义，就不再改变的特性，而 this.state 是会随着用户互动而产生变化的特性。 ）表单的值需要通过this.state+onchange获取操作
+
+组件的生命周期 组件的生命周期分为三个状态：      Mounting: 已插入真实DOM      Updating: 正在被重新渲染      Unmounting: 已移除真实DOM   React为每个状态都提供了两种处理函数，will函数在进入状态之前调用，did函数在进入状态之后调用，三种状态共有五种处理函数
+
+1.
+componentWillMount()
+2.
+componenrDidMount()
+3.
+componentWillUpdate(object nextProps, object nextState)
+4.
+componentDidUpdate(object nextProps, object nextState)
+5.
+componentWillUnmount()
+
+React还提供两种特殊状态处理函数：      componentWillReceiveProps(object nextProps): 已加载组件收到新的参数时调用      shouldComponentUpdate(object nextProps, object nextState): 组件判断是否重新渲染时调用   组件style属性的设置方式需要写成style={{display: this.state.display}}  
+
+
