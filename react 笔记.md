@@ -8,5 +8,19 @@ react.js使用jsx语法，script标签的type值必须为“text/jsx“！ 在js
 
    farewell  我的大学
 
+这里的...other会包含checked属性外的其他（name, onClick）属性
 
-   
+ 2.this.props.children用来获取标签内的所有子节点      3.propTypes对象用来验证组件实例的属性
+
+     var MyTitle = React.createClass({
+        propTypes: {
+            title.React.propType.string.isRequired,
+            },
+            render: function() {
+                return <h3>{this.props.title}</h3>;
+            }
+     })
+
+  4.getDefaultProps方法用来设置组件属性的默认值
+
+  
