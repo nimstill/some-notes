@@ -44,3 +44,11 @@ componentWillUnmount()
 React还提供两种特殊状态处理函数：      componentWillReceiveProps(object nextProps): 已加载组件收到新的参数时调用      shouldComponentUpdate(object nextProps, object nextState): 组件判断是否重新渲染时调用   组件style属性的设置方式需要写成style={{display: this.state.display}}  
 
 
+flexDirection: 'row'来让我们的主容器的成员从左到右横向布局，而非默认的从上到下纵向布局。
+
+组件加载完毕之后，就可以向服务器请求数据。componentDidMount是React组件的一个生命周期方法，它会在组件刚加载完成的时候调用一次，以后不会再被调用。
+
+**使用adb出现cannot parse version string:kg01**
+
+*solution：adb kill-server*
+
