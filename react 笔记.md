@@ -61,3 +61,7 @@ Promise对象有以下两个特点。
 
 组件---
 
+flex-direction
+justify-content
+flex-wrap
+

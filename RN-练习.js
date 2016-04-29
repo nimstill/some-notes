@@ -256,3 +256,40 @@ setInterval(function() {
 }, 500);
 
 
+var Mytitle = React.createClass({
+    getDefaultProps: function() {
+        return {
+            title: "Hello World"
+        };
+    },
+
+    render: function() {
+        return <h3>{this.props.title}</h3>
+    }
+})
+ReactDOM.render(
+    <Mytitle title - 'haha'/>,
+    document.getElementById('example')
+)
+
+
+
+var MyForm = React.createClass({
+    myClick: function() {
+        this.refs.myInput.focus();
+
+    },
+    render: function() {
+        return {
+            <div>
+                <input type="text" ref="myInput" />
+                <input type='button' value='click' onClick={this.myClick}/>
+            </div>
+        }
+    }
+})
+
+
+
+
+
