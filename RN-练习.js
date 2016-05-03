@@ -290,6 +290,34 @@ var MyForm = React.createClass({
 })
 
 
+/*/*/*/*/*/*/*/*/*/*/*/*/*/
 
 
+  onSearchChange(event: Object) {
+    var searchTerm = event.nativeEvent.text.toLowerCase();
+    var queryURL = BASE_URL + encodeURIComponent(searchTerm);
+      fetch(queryURL,{
+        method : 'GET',
+        headers : {
+          //'Accept': 'text/plain',
+          //'Accept' : 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;',
+          'Content-Type' : 'text/plain;charset=UTF-8',
+          //'User-Agent' : 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/44.0.2403.89 Safari/537.36',
+          //'Host' : 'domain.xx.com',
+      }
+    })
+      .then((response) => response.json())
+      .then((responseData) => {
+        if (responseData.items) {
+          this.setState({
+            dataSource: this.state.dataSource.
+              cloneWithRows(responseData.items),
+          });
+        }
+      })
+      .catch((error) => {
+        console.warn(error);
+      })
 
+      .done();
+  }
