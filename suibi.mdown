@@ -10,3 +10,104 @@ Firefox OS （虽然它挂了）
 模块化：AMD | CMD -> Commonjs -> import export
 语法增强：CoffeeScript -> Dart -> TypeScript
 
+原型继承和类继承是两种认知模式，本质上都是为了抽象（复用代码）。相对于类，原型更初级且更灵活。因此当一个系统内没有太多关联的事物的时候，用原型明显比用类更灵活便捷。
+
+原型继承和类继承是两种不同的认知模式，原型继承在对象不是很多的简单应用模型里比类继承更加灵活方便。然而JavaScript的原型继承在语法上有一个构造器额外调用的问题，我们只要通过 createObjWithoutConstructor 来延迟构造器的调用，就能解决这个问题。
+
+    (function(global){"use strict"
+
+      Function.prototype.extend = function(props){
+        var Super = this; //父类构造函数
+
+        //父类原型
+        var TmpCls = function(){
+
+        }
+        TmpCls.prototype = Super.prototype;
+
+        var superProto = new TmpCls();
+
+        //父类构造器wrapper
+        var _super = function(){
+          return Super.apply(this, arguments);
+        }
+
+        var Cls = function(){
+          if(props.constructor){
+            //执行构造函数
+            props.constructor.apply(this, arguments);
+          }
+          //绑定 this._super 的方法
+          for(var i in Super.prototype){
+            _super[i] = Super.prototype[i].bind(this);
+          }
+        }
+        Cls.prototype = superProto;
+        Cls.prototype._super = _super;
+
+        //复制属性
+        for(var i in props){
+          if(i !== "constructor"){
+            Cls.prototype[i] = props[i];
+          }
+        }  
+
+        return Cls;
+      }
+
+      function Animal(name){
+        this.name = name;
+      }
+
+      Animal.prototype.sayName = function(){
+        console.log("My name is "+this.name);
+      }
+
+      var Programmer = Animal.extend({
+        constructor: function(name){
+          this._super(name);
+        },
+        sayName: function(){
+          this._super.sayName(name);
+        },
+        program: function(){
+          console.log("I\"m coding...");
+        }
+      });
+      //测试我们的类
+      var animal = new Animal("dummy"),
+          akira = new Programmer("akira");
+      animal.sayName();//输出 ‘My name is dummy’
+      akira.sayName();//输出 ‘My name is akira’
+      akira.program();//输出 ‘I"m coding...’
+
+    })(this);
+
+
+Virtual DOM 算法主要是实现上面步骤的三个函数：element，diff，patch。然后就可以实际的进行使用：
+
+    // 1. 构建虚拟DOM
+    var tree = el('div', {'id': 'container'}, [
+        el('h1', {style: 'color: blue'}, ['simple virtal dom']),
+        el('p', ['Hello, virtual-dom']),
+        el('ul', [el('li')])
+    ])
+
+    // 2. 通过虚拟DOM构建真正的DOM
+    var root = tree.render()
+    document.body.appendChild(root)
+
+    // 3. 生成新的虚拟DOM
+    var newTree = el('div', {'id': 'container'}, [
+        el('h1', {style: 'color: red'}, ['simple virtal dom']),
+        el('p', ['Hello, virtual-dom']),
+        el('ul', [el('li'), el('li')])
+    ])
+
+    // 4. 比较两棵虚拟DOM树的不同
+    var patches = diff(tree, newTree)
+
+    // 5. 在真正的DOM元素上应用变更
+    patch(root, patches)
+
+
