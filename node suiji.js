@@ -47,3 +47,35 @@ conn.on('data', function (data) {
 //加油啊！
 
 
+net.connect(port[[, host], callback])
+var client = net.connect(3000, 'localhost');
+client.on('connect', function () {});
+net.connect(300, 'localhost', function () {});
+var colent = net.connect(6667, 'irc.freenode.net')
+client.setEncoding('utf-8')
+client.on('connect, function (' {
+    client.write('NICK mynick\r\n');
+    client.write('USER mynick 0 * :realname\r\n');
+    client.write('JOIN #node.js\r\n')
+});
+
+
+
+/*
+
+面试记录，并没有什么很好的启发
+还是要靠自己
+都是这样过来的
+努力学习
+提升自己
+珍惜现在
+无论如何
+remember
+
+
+that's all 
+
+*/
+
+
+
