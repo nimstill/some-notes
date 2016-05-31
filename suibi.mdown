@@ -112,3 +112,7 @@ Virtual DOM 算法主要是实现上面步骤的三个函数：element，diff，
 
 
 **github搜索hakimel。瑞典人、开源项目作者、专注css。我想你看完他的github,一定给你对css有新的认识**
+
+没有人情可言
+哎
+好好加油，提升自己
