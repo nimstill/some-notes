@@ -128,3 +128,5 @@ Virtual DOM 算法主要是实现上面步骤的三个函数：element，diff，
     学习一些函数式编程的思想，例如：lodash、Redux、RxJS；
     拿到 offer 只是开始不要嘚瑟。
 
+
+仍需努力！
