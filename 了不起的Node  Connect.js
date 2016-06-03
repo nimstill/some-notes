@@ -101,3 +101,27 @@ server.listen(3000);
 
 
 
+//////////socket.io
+
+
+var express = require('express')
+,  sio = require('socket.io')
+
+app = express.createServer(
+    express.bodyParser()
+    , express.static('public')
+    );
+
+app.listen(3000);
+
+
+var io = sio.listen(app);
+io.sockets.on('connextion', function (socket) {
+    console.log('Someone connected');
+});
+
+var io = sio.listen(app);
+io.sockets.on('connextion', function (socket) {
+    sonsole.log('someone connected');
+});
+
