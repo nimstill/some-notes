@@ -3,3 +3,13 @@
 
 ###javascript编程实战
 
+#QUnit 基础
+test('hello test ', function() {
+    ok(1 == '1', 'Passed!');
+});
+
+
+//python  and baiabi
+
+
+
