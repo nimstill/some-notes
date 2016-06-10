@@ -8,8 +8,11 @@ test('hello test ', function() {
     ok(1 == '1', 'Passed!');
 });
 
-
+2016.06.09
 //python  and baiabi
+
+2016.06.10
+//上课 无聊ing 还是要找工作   哎！！！
 
 
 
