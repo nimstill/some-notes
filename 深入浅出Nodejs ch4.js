@@ -19,3 +19,12 @@ var isString = isType('String');
 var isFunction = isType('Function');
 
 
+
+// wuliaoing   
+// 
+// 
+// 
+
+
+
+
