@@ -172,3 +172,10 @@ haohaokanshu biji    dima   go
 
 
 some thing 
+
+纯函数比普通的函数更容易理解，什么是纯函数？当使用同样的参数调用，如果输出的内容相同，这就是所谓的”纯函数”。
+
+  xuexiing 
+
+
+  
