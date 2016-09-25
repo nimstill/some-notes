@@ -9,10 +9,9 @@ var module = {
 };
 
 (function(module, exports) {
-    exports.multiply = function(n) {
-    return n* 1000;
-};
-
+        exports.multiply = function(n) {
+        return n* 1000;
+    };
 }(module, module.exports))
 
 var f = module.exports.multiply;
@@ -24,3 +23,4 @@ bin
 lib 
 doc 
 test
+
