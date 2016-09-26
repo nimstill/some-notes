@@ -24,3 +24,35 @@ lib
 doc 
 test
 
+
+**webpack**
+
+npm install webpack
+sudo npm install webpack -g
+
+module.exports = {
+    // The standard entry point and output config
+    //每个页面的js文件
+    entry: {
+        home: "js/home",
+        detail: "js/detail"
+    },
+    output: {
+        path: "assets",                   //打包输出目录
+        publicPath: "/static/build/",     //webpack-dev-server访问的路径
+        filename: "[name].js",            //输出文件名
+        chunkFilename: "bundle-[id].js"   //输出chunk文件名
+    }
+};
+
+文件束chunk
+
+找不到js/home的模块，只要在配置里面加一句resolve：
+
+告诉webpack模块的目录JavaScript
+
+resolve: {
+    modulesDirectories: ['.']
+}
+
+
