@@ -98,3 +98,59 @@ module.exports = {
     ]
 }
 
+用热加载方式启动Shell
+webpack-dev-server --port=8383 --hot --inline
+
+可以指定一个minChunk的参数，指定模块至少被require几次才能提取出来，默认是3
+
+还可以定义两个commonChunk，例如在详情页、列表页和首页都有搜索的模块，而其它页面没有搜索的模块，也就是说除了所有页面都有的公共模块如登陆注册外，还有一个搜索的公共模块有三个页面要用到。如果都用一个common chunk，会把搜索的也放进来，但其它很多页面并不需要用到。这个时候需要加多一个common chunk：
+
+plugins: [
+    new CommonsChunkPlugin({
+        name: "search-app.chunk",
+        chunks: ["search-app-init", "home", "detail", "list"]
+    }),
+    new CommonsChunkPlugin({
+        name: "common-app.chunk",
+        chunks: ["home", "detail", "search-map", "search-app.chunk", "sell", "about", "blog"]
+    })
+]
+
+
+引入压缩的插件JavaScript
+
+var webpack = require("webpack");
+plugins: [
+    new webpack.optimize.UglifyJsPlugin()
+]
+
+版本号就是在输出带上hash的替换符，如下：
+
+加上hash版本号JavaScript
+
+module.exports = {
+    output: {
+        path: "assets",
+        publicPath: "/static/build/",
+        filename: "[name]-[chunkhash].js",
+        chunkFilename: "bundle-[chunkhash].js"
+    },
+ 
+    plugins: [
+        new ExtractTextPlugin("[name]-[contenthash].css")
+    ],
+}
+
+var AssetsPlugin = require('assets-webpack-plugin');
+output: {
+    publicPath: "//cdn.mycde.com/static/build/"
+},
+pludins: [
+    new Assetplugin({filename: './source-map.json', prettyPrint: true}),
+]
+
+>
+
+http://yincheng.site/webpack?hmsr=toutiao.io&utm_medium=toutiao.io&utm_source=toutiao.io
+
+
