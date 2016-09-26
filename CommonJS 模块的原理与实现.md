@@ -56,3 +56,45 @@ resolve: {
 }
 
 
+npm install webpack-dev-server --save-dev
+sudo npm install webpack-dev-server -g
+
+webpack-dev-sever --port=8080
+
+moduleexports = {
+    entry: ...,
+    output: ...,
+    resolve: ...,
+    module: {
+    loaders: [
+    {
+        test: /\.css$/,
+        loader: "style-loader!css-loader"
+    },
+    ]
+}
+};
+
+
+安装分离css插件Shell
+
+npm install extract-text-webpack-plugin --save-dev
+
+
+var ExtractTextPlugin = require("extract-text-webpack-plugin");
+module.exports = {
+    module: {
+        loaders: [
+            // Extract css files
+            {
+                test: /\.css$/,
+                loader: ExtractTextPlugin.extract("style-loader", "css-loader")
+            },
+        ]
+    },
+
+    plugins: [
+        new ExtractTextPlugin("[name].css")
+    ]
+}
+
