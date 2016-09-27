@@ -61,22 +61,23 @@ client.on('connect, function (' {
 
 
 
-/*
+var toString = Object.prototype.toString;
 
-面试记录，并没有什么很好的启发
-还是要靠自己
-都是这样过来的
-努力学习
-提升自己
-珍惜现在
-无论如何
-remember
+var isString = function (obj) {
+    return toString.call(obj) == '[object String]';
+};
 
-
-that's all 
-
-*/
+var isFunction = function (obj) {
+    return toString.call(obj) == '[object Function]';
+};
 
 
+var isType = function (type) {
+    return function (obj) {
+        return toString.call(obj) == '[object ' + type + ']';
+    };
+};
 
-北上广深  压力好大
+var isString = isType('String');
+var isFunction = isType('Function');
+
