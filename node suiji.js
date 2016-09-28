@@ -81,3 +81,6 @@ var isType = function (type) {
 var isString = isType('String');
 var isFunction = isType('Function');
 
+
+
+
