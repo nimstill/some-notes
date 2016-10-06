@@ -34,4 +34,46 @@ def login():
     cap_file.write(cap_content)
     cap_file.close()
     captcha = raw_input('capture:')
-    
+
+
+
+在 Python 3 中，/ 操作符是做浮点除法，而 // 是做整除（即商没有余数，
+比如 10 // 3 其结果就为 3，余数会被截除掉，而 (-7) // 3 的结果却是 -3。
+这个算法与其它很多编程语言不一样，需要注意，它们的整除运算会向0的方向取值。
+而在 Python 2 中，/ 就是整除，即和 Python 3 中的 // 操作符一样，）
+
+list = ['a', 'b', 'c', 'd', 'e']
+print list[10:]
+
+以上代码将输出 []，并且不会导致一个 IndexError。
+
+新的默认列表仅仅只在函数被定义时创建一次。随后当 extendList 没有被指定的列表参数调用的时候，其使用的是同一个列表。
+这就是为什么当函数被定义的时候，表达式是用默认参数被计算，而不是它被调用的时候。
+
+def extendList(val, list=[]):
+    list.append(val)
+    return list
+ 
+list1 = extendList(10)
+list2 = extendList(123,[])
+list3 = extendList('a')
+ 
+print "list1 = %s" % list1
+print "list2 = %s" % list2
+print "list3 = %s" % list3
+
+anwser
+list1 = [10, 'a']
+list2 = [123]
+list3 = [10, 'a']
+
+better
+
+def extendList(val, list=None):
+    if list is None:
+        list = []
+    list.append(val)
+    return list
+
+
+
