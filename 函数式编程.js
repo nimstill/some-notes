@@ -35,3 +35,5 @@ haveSpace("ffff");
 filter(haveSpace, ["abcdefg", "Hello World"]);
 
 
+more  ES6
+
