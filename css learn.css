@@ -34,3 +34,43 @@ px – Pixels 并没有任何的动态扩展性，它们往往用于描述绝对
 
 font-size: calc(1em + 1vw);
 
+
+[].forEach.call($$("*"),function(a){
+
+  a.style.outline="1px solid #"+(~~(Math.random()*(1<<24))).toString(16)
+
+})
+
+Chrome浏览器控制台中输入 $$('a')，然后你就能得到一个当前页面中所有锚元素的列表。
+可以使用 document.querySelectorAll('*') 来代替 $$('*')
+
+[].forEach.call( $$('*'), function( element ) { /* 在这里修改颜色 */ });
+首先，我们通过选择器获得的列表是一个NodeLists对象，它和JavaScript中的数组有点像，你可以使用方括号来获取其中的节点，你也可以检查它其中包含多少个元素，但是它并没有实现数组包含的所有方法，因此我们并不能使用$$('*').forEach()来进行迭代。在JavaScript中，有好几个类似于数组但是并不是数组的对象，除了前面的NodeLists，还有函数的参数集合arguments，
+在这里我们可以使用call或apply函数将函数的方法运用到这些对象上。
+
+function say(name) {
+
+ console.log( this + ' ' + name );
+
+}
+
+say.call( 'hola', 'Mike' ); // 打印 'hola Mike'
+
+// 你也可以将这种方法有用在arguments对象上 function example( arg1, arg2, arg3 ) { return Array.prototype.slice.call(arguments, 1); // Returns [arg2, arg3] }
+
+真正有趣的地方在于定义颜色部分：
+
+~~(Math.random()*(1<<24))).toString(16)
+
+在Addy的代码中，使用了[].forEach.call而不是Array.prototype.forEach.call，二者等价，但是前者可以节省几个字节。
+我们现在只需要一个位于0和ffffff之间的十六进制数，由于:
+
+parseInt("ffffff", 16) == 16777215
+而这里的16777215实际上是2^24-1。
+
+
+代码中使用波浪号操作符来完成这件事。波浪操作符在JavaScript中被用来对一个变量进行取反
+
+两次取反可以去掉一个浮点数的小数部分，因此~~的作用相当于parseInt
+
+ >from Learning much javascript from one line of code
