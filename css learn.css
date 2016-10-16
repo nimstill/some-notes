@@ -74,3 +74,24 @@ parseInt("ffffff", 16) == 16777215
 两次取反可以去掉一个浮点数的小数部分，因此~~的作用相当于parseInt
 
  >from Learning much javascript from one line of code
+
+
+
+
+let thumb = new Image();
+thumb.src = thumbSrc;
+thumb.onload = () => {
+setStyle(thumb, 'thumb-loaded');
+};
+elem.appendChild(thumb);
+
+let realImg = new Image();
+readImg.src = lgSrc;
+realImg.onload = () => {
+    setStyle(realImg, 'large-loaded');
+    setStyle(thumb, 'thumb-hidden');
+};
+
+// 将大图添加到页面中
+elem.appendChild(realImg);
+
