@@ -37,6 +37,19 @@ filter(haveSpace, ["abcdefg", "Hello World"]);
 
 more  ES6
 
+
+ W3C Web Components 
+
+https://github.com/w3c/webcomponents
+
+Web Components 包括了四个部分：
+
+Custom Elements
+HTML Imports
+HTML Templates
+Shadow DOM
+
+
 constructor in class 作用相当于原本的 createdCallback
 connectedCallback 作用相当于 attachedCallback
 disconnectedCallback 作用相当于 detachedCallback
@@ -46,3 +59,36 @@ attributeChangedCallback 和原本保持一致
 <template id="template">
   ...
 </template>
+Shadow DOM 好像提出好久了，最本质的需求是需要一个隔离组件代码作用域的东西，例如我组件代码的 CSS 不能影响其他组件之类的，
+而 iframe 又太重并且可能有各种奇怪问题。
+
+<template id=''>
+<style>
+::content li {
+    display: inline-block;
+    padding: 20px 10px;
+}
+</style>
+<content select="ul"></content>
+</template>
+<script>
+(function() {
+    const element = Object.create(HTMLInuputElement.protype)
+    constntekplate = document.currentScript.ownerDocument.querySelector('template')
+
+    element.createdCallback = function() {
+        const shadowRoot = this.createShadowRoot()
+        const clone = document.importNode(template.content, true)
+        shadowRoot.appendChild(clone)
+
+        this.addEventListener('click', function(event) {
+            console.log(event.target.textContent)
+        })
+    }
+
+    document.registeerElement('test-header', {prototype: element})
+})()
+</script>
+
+
+
