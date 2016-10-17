@@ -37,3 +37,9 @@ filter(haveSpace, ["abcdefg", "Hello World"]);
 
 more  ES6
 
+constructor in class 作用相当于原本的 createdCallback
+connectedCallback 作用相当于 attachedCallback
+disconnectedCallback 作用相当于 detachedCallback
+adoptedCallback 使用 document.adoptNode(node) 时触发
+attributeChangedCallback 和原本保持一致
+
