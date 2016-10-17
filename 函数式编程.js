@@ -43,3 +43,6 @@ disconnectedCallback 作用相当于 detachedCallback
 adoptedCallback 使用 document.adoptNode(node) 时触发
 attributeChangedCallback 和原本保持一致
 
+<template id="template">
+  ...
+</template>
