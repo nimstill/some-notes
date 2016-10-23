@@ -26,6 +26,18 @@ function tokenizer(input) {
     // Next we're going to check for a closing parenthesis. We do the same exact
     // thing as before: Check for a closing parenthesis, add a new token,
     // increment `current`, and `continue`.
-    385
+        if (char ===')') {
+            tokens.push({
+                type: 'paren',
+                value: ')'
+            });
+            current++;
+            continue;
+        }
+
+
+        
     }
 }
+
+
