@@ -82,5 +82,40 @@ var isString = isType('String');
 var isFunction = isType('Function');
 
 
+banner 效果
+
+<html>
+ <head></head>
+ <body>
+  <div class="index_topbanner_wrap" data-bgcolor=""> 
+   <div id="topCurtain" class="wrap index_topbanner" style="" data-tpa=""> 
+    <a class="big_topbanner" target="_blank" data-ref="" href="" title="" style="display: block;"> <img alt="" src="" /> </a> 
+    <a id="smallTopBanner" class="small_topbanner" style="display: none;" target="_blank" data-ref="" 
+    href="" title=""> <span class="index_topbanner_fold index_topbanner_unfold" title="点击-展开"> 收起 
+      <s></s> </span> </a>
+   </div>
+   <a id="smallTopBanner" class="small_topbanner" style="display: none;" target="_blank" data-ref=""
+    href="" title=""> </a>
+  </div>
+ </body>
+</html>
+
+.index_topbanner {
+    width: 17px;
+    height: 38px;
+    line-height: 16px;
+    overflow: hidden;
+    padding-top: 2px;
+    color: #FFF;
+    position: absolute;
+    right: 21px;
+    cursor: pointer;
+    top: 0;
+    display: block;
+    text-align: center;
+    background: #666;
+}
+
+jquery slideDown() 
 
 
