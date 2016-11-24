@@ -35,6 +35,32 @@ function tokenizer(input) {
             continue;
         }
 
+        var WHITESPACE = /\s/;
+        if (WHITESPACE.test(char)) {
+            current++;
+            continue;
+        }
+
+        var NUMBERS = /[char]/;
+        if (NUMBERS.test(char)) {
+            var value = '';
+
+            while(NUMBERS.test(char)) {
+                value += char;
+                char = input[++current];
+            }
+
+            tokens.push({
+                type: 'number',
+                value: value
+            });
+
+            continue;
+        }
+
+
+        
+
 
         
     }
