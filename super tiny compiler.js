@@ -57,13 +57,25 @@ function tokenizer(input) {
 
             continue;
         }
+        var LETTERS = /[a-z]/i;
+        if (LETTERS.test(char)) {
+            var value = '';
+            while (LETTERS.test(char)) {
+                value += char;
+                char = input[++curent];
+            }
 
-
-        
-
-
-        
+            tokens.push({
+                type: 'name',
+                value: value
+            });
+            continue;
+        }
+        throw new TypeError('i dont know what this character is:' + char); 
     }
+    return tokens;
 }
+
+
 
 
