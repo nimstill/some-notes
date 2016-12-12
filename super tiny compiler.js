@@ -157,6 +157,85 @@ function traverser(ast, visitor) {
     traverseNOde(ast, null);
 }
 
+function transformer(ast) {
+    var newAst = {
+        type: 'Program',
+        body: []
+    };
 
+    ast._context = newAst.body;
+    traverser(ast, {
+        NumberLiteral: function(node, parent) {
+            parent._context.push({
+                type: 'NumberLiteral',
+                value: node.value
+            });
+        },
+
+        CallExpression: function(node, parent) {
+            var expression = {
+                type: 'CallExpression',
+                callee: {
+                    type: 'Identifier',
+                    name: node.name
+                },
+                arguments: []
+            };
+            node._context = expression.arguments;
+            if (parent.type !== 'CallExpression') {
+                expression = {
+                    type: 'Expression',
+                    expression: expression
+                };
+            }
+
+            parent._context.push(expression);
+        }
+    });
+    return newAst;
+}
+
+
+function codeGenerator(node) {
+    switch (node.type) {
+        case 'Program':
+        return node.body.map(codeGenerator)
+        .join('\n');
+
+        case 'ExpressionStatement':
+        return (
+            codeGenerator(node.expression) + ',');
+        case 'CallExpression':
+        return (codeGenerator(node.callee) + 
+            '(' + node.arguments.map(codeGenerator).join(',')
+            + ')');
+        case 'Identifier':
+        return node.name;
+
+        // For `NumberLiterals` we'll just return the `node`'s value.
+        case 'NumberLiteral':
+          return node.value;
+
+        // And if we haven't recognized the node, we'll throw an error.
+        default:
+          throw new TypeError(node.type);
+    }
+}
+
+function compiler(input) {
+    var tokens = tokenizer(input);
+    var ast = parser(tokens);
+    var newAst = transformer(ast);
+    var output = codeGenerator(newAst);
+    return output;
+}
+
+module.exports = {
+    tokenizer: tokenizer,
+    parser: parser,
+    transformer: transformer,
+    codeGenerator: codeGenerator,
+    compiler: compiler
+};
 
 
