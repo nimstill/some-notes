@@ -76,6 +76,35 @@ function tokenizer(input) {
     return tokens;
 }
 
+function parser(tokens) {
+    var current = 0;
 
+    function walk() {
+        var token = tokens[current];
+        if (token.type === 'number') {
+            current++;
+            return {
+                type: 'NumberLiteral',
+                value: token.value
+            };
+        }
+
+        if (
+            token.type === 'paren' && 
+            token.value === '('
+            ) {
+            token = tokens[++current];
+
+        var node = {
+            type: 'CallExpression',
+            name: token.value,
+            params: []
+        };
+        token = tokens[++current];
+
+        
+        }
+    }
+}
 
 
