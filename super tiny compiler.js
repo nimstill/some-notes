@@ -102,9 +102,61 @@ function parser(tokens) {
         };
         token = tokens[++current];
 
-        
+        while (
+            (token.type !== 'paren') ||
+            (token.type === 'paren' && token.value !==')')
+            ) {
+            node.params.push(walk());
+        token = tokens[current];
+        }
+
+        current++;
+        return node;
+        }
+
+        throw new TypeError(token.type);
+    }
+    var ast = {
+        type: 'Program',
+        body: []
+    };
+
+     while (current < tokens.length) {
+        ast.body.push(walk());
+     }
+     return ast;
+}
+
+function traverser(ast, visitor) {
+    function traverseArray(array, parent) {
+        array.forEach(function(child) {
+            traverseNode(child, parent);
+        });
+    }
+
+    function traverseNode(node, parent) {
+        var method = visitor[node.type];
+
+        if (method) {
+            method(node, parent);
+        }
+
+        switch (node.type) {
+            case 'Program':
+                traverseArray(node.body, node);
+                break;
+            case 'CallExpression':
+                traverseArray(node.params, node);
+                break;
+            case 'NumberLiteral':
+                break;
+            default:
+                throw new TypeError(node.type);
         }
     }
+    traverseNOde(ast, null);
 }
+
+
 
 
