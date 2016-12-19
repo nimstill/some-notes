@@ -10,3 +10,13 @@
 │   ├─App.vue       // App.vue组件
 │   ├─main.js       // 预编译入口
 
+
+
+
+porps：基于属性传递，vue提供了单次绑定、单向绑定和双向绑定。
+
+通过引用：子组件可以用this.$parent访问它的父组件。根实例的后代可以用this.$root访问它。父组件有一个数组this.$children，包含它所有的子元素。
+
+它需要dispatch一个事件给App ->需要监听A组件dispatch的事件，同时需要broadcast一个事件给B组件。
+-> 它需要on监听App组件分发的事件。
+
