@@ -38,3 +38,5 @@ porps：基于属性传递，vue提供了单次绑定、单向绑定和双向绑
 vue compoents -> call= actions -> diapath= muttations->
 mutate=state-> update= vue components
 
+mutation本身是一个事件系统，通过定义事件来触发Store的状态变更。mutation里面定义的函数必须是同步函数，涉及到API调用的逻辑要放到Action进行，因为Action是可以定义异步函数的。
+
