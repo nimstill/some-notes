@@ -40,3 +40,25 @@ mutate=state-> update= vue components
 
 mutation本身是一个事件系统，通过定义事件来触发Store的状态变更。mutation里面定义的函数必须是同步函数，涉及到API调用的逻辑要放到Action进行，因为Action是可以定义异步函数的。
 
+// 滚动到页面顶部
+router.beforeEach(function() {
+  window.scrollTo(0, 0)
+})
+
+//全路径匹配，防止出现404
+router.redirect({
+  '*': '/'
+})
+//启动APP
+router.start(App, '#root')
+
+ctions 是组件内用来分发 mutations 的函数。第一个参数固定为store。
+
+export const showDetail = makeAction('SHOW_DETAIL')
+
+function makeAction(type) {
+    return ({
+    dispatch
+    }, ...args) => dispatch(type, ...args)
+}
+
