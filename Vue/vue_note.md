@@ -62,3 +62,102 @@ function makeAction(type) {
     }, ...args) => dispatch(type, ...args)
 }
 
+vuex: {
+    getters: {
+    orders: ({orderList}) => orderList.orders
+},
+actions: {
+    showDetail
+},
+computed: {
+}
+}
+activeClass:'active'
+
+在**webpack**的配置文件我们需要用到四个npm的模块分别是：path，webpack，extract-text-webpack-plugin,vue-loader记得先下载包在用require命令引入进来
+
+//node的路径模块
+var path=require('path');
+//我们是webpack当然要引入这个
+var webpack = require('webpack');
+//这个是构建页面资源的插件
+var ExtractTextPlugin = require('extract-text-webpack-plugin');
+//因为我们是vue.js的应用，把各个组件当做一个页面.vue后缀，所以引入这个可以编译這些文件
+var vue = require("vue-loader");
+
+
+//__dirname是node里面的一个变量，指向的是当前文件夹目录
+var ROOT_PATH = path.resolve(__dirname);
+//这个我们的文件入口，等下我们就会从main.js这个文件作为入口
+var APP_PATH = path.resolve(ROOT_PATH, 'src/main.js');
+//这个是文件打包出来的输出路径
+var BUILD_PATH = path.resolve(ROOT_PATH, 'build');
+
+var plugins = [
+  //提公用js到common.js文件中
+  new webpack.optimize.CommonsChunkPlugin('common.js'),
+  //将样式统一发布到style.css中
+  new ExtractTextPlugin("style.css"),
+ // 使用 ProvidePlugin 加载使用率高的依赖库
+  new webpack.ProvidePlugin({
+    $: 'webpack-zepto'
+  })
+];
+
+module.exports = {
+     //文件的入口，还可以写成多数组的形式，具体自己扩展
+     entry:[APP_PATH],
+     //输出
+     output:{
+         //输出路径
+         path: BUILD_PATH，
+         //打包的js命名
+         filename：build.js'
+         // 指向异步加载的路径
+         publicPath : __dirname + '/build/',
+         // 非主文件的命名规则，加缓存用到md5
+         chunkFilename: '[id].build.js?[chunkhash]'
+     },
+     module: {
+         loaders: [
+              {
+                test: /\.vue$/,
+                loader: 'vue',
+              },
+              {
+                test: /\.scss$/,
+                loader: ExtractTextPlugin.extract("style-loader", 'css-loader')
+              },
+              {
+                test: /\.css$/,
+                loader: ExtractTextPlugin.extract("style-loader", "css-loader")
+              },
+              {
+                test: /\.(png|jpg)$/,
+                loader: 'url?limit=40000'
+              }
+         ]
+    },
+  //这个特别说明下，vue提倡把一个组件当做一个页面，所以可能在一个页面写html，style，javascript，也可以引入和写scss文件
+  vue: {
+    css: ExtractTextPlugin.extract("css"),
+    sass: ExtractTextPlugin.extract("css!sass-loader")
+  },
+  plugins: plugins
+}
+
+在vue里面声明并注册个空组件
+
+Vue.use(VueRouter);
+Vue.use(VueResource);
+var app = Vue.extend({});
+
+
+
+    component local state：该状态表示仅仅在组件内部使用的状态，类似通过配置选项传入 Vue 组件内部
+
+    application level state：应用层级状态，表示同时被多个组件共享的状态层级。
+
+
+
+
