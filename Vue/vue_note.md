@@ -159,5 +159,28 @@ var app = Vue.extend({});
     application level state：应用层级状态，表示同时被多个组件共享的状态层级。
 
 
+Vuex 规定，属于应用层级的状态只能通过 Mutation 中的方法来修改，而派发 Mutation 中的事件只能通过 action。
+
+从左到又，从组件出发，组件中调用 action，在 action 这一层级我们可以和后台数据交互，比如获取初始化的数据源，或者中间数据的过滤等。然后在 action 中去派发 Mutation。Mutation 去触发状态的改变，状态的改变，将触发视图的更新。
+
+
+export const filteredNotes = (state) => {
+    if (state.show === 'all') {
+    return state.notes || {};
+} else if (state.show === 'favorite') 
+{
+return state.notes.filter(note=> note.favorite) || {};
+}
+};
+
+export const show = (state) => {
+    return state.show;
+};
+
+export const activeNote = (state) => {
+    return state.activeNote;
+};
+
+
 
 
