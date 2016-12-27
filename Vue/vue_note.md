@@ -183,4 +183,20 @@ export const activeNote = (state) => {
 
 
 
+function install (_Vue) {
+    if (Vue) {
+    console.error('...')
+    return
+}
+Vue = _vue
+applyMixin(Vue)
+}
+
+if (typeof window !== 'undefined' && window.Vue) {
+    install(window.Vue)
+}
+
+
+#webpack
+执行npm run dev命令后并不会在dist目录下生成build.js文件，开发环境下build.js是在运行内存中的。
 
