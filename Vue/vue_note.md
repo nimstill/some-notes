@@ -200,3 +200,22 @@ if (typeof window !== 'undefined' && window.Vue) {
 #webpack
 执行npm run dev命令后并不会在dist目录下生成build.js文件，开发环境下build.js是在运行内存中的。
 
+
+
+###some git
+
+amend重新提交
+
+当我们commit之后突然发现漏掉了一个文件, 这个时候不可能对一个文件再进行commit一次, 这样做就显得很多余, 而如果版本回退之前再添加也比较麻烦. 这个时候就可以使用这个amend命令.如下:
+
+$ git commit -m "版本1.5开发代码"
+
+# 正当你松了一口气的时候发现配置文件忘记修改了, 你赶紧修改,并适合用add到暂存区
+$ git add project.property
+$ git commit --amend         
+# 你会神奇的发现你没有增加任何多余的操作就把漏掉的文件补齐到最后一次提交中
+
+文／花前月下的细说（简书作者）
+原文链接：http://www.jianshu.com/p/f4cd5f2d1a5f
+著作权归作者所有，转载请联系作者获得授权，并标注“简书作者”。
+
