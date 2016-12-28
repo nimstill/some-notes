@@ -215,7 +215,29 @@ $ git add project.property
 $ git commit --amend         
 # 你会神奇的发现你没有增加任何多余的操作就把漏掉的文件补齐到最后一次提交中
 
-文／花前月下的细说（简书作者）
-原文链接：http://www.jianshu.com/p/f4cd5f2d1a5f
-著作权归作者所有，转载请联系作者获得授权，并标注“简书作者”。
+
+# 删除dev分支
+$ git branch -d dev
+
+# 如果dev分支还有未提交的内容,为了保证你的数据安全git默认是不允许删除,可以使用`-D`强制删除
+$ git branch -D dev
+
+# rebase <目标分支名> [需要移动变基底的分支]
+$ git rebase master experiment
+
+# 此时目标分支后面会追加另一个分支的提交. 此时只需要切换到master分支,合并分支即可.
+$ git checkout master
+$ git merge experiment
+
+# 设置HEAD指向的分支的上游为远程dev分支
+$ git branch -u origin/dev
+
+
+查看设置的所有跟踪分支
+
+$ git branch -vv
+
+对远程仓库的名称进行修改
+
+$ git remote rename oldName newName
 
