@@ -95,4 +95,26 @@ print(a.foo(1))
 print(a.class_foo(1))
 print(a.static_foo(1))
 
+#迭代器和生成器
+
+#生成器：带有yield的函数不再是一个普通函数，而是一个生成器。当函数被调用时，返回一个生成器对象。不像一般函数在生成值后退出，生成器函数在生成值后会自动挂起并暂停他们的执行状态。
+
+#迭代器：是访问集合元素的一种方式，从集合的第一个元素开始访问，直到所有元素被访问结束。其优点是不需要事先准备好整个迭代过程中的所有元素，仅在迭代到某个元素时才开始计算该元素。适合遍历比较巨大的集合。__iter__()：方法返回迭代器本身， __next__()：方法用于返回容器中下一个元素或数据。
+
+'''diedaiqi'''
+print('for x in iter([1,2,3,4,5]):')
+for x in iter([1,2,3,4,5]):
+    print(x)
+
+'''shengchengqi'''
+
+def myyield(n):
+    while n>0:
+        print("start...")
+        yield n
+        print ('done one...')
+        n -= 1
+for i in myyield(4):
+    print('bianli:', i)
+
 
