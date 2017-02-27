@@ -133,3 +133,24 @@ print(msum())
 
 #*args表示任何多个无名参数，它是一个元组，**kwargs表示关键字参数，它是一个字典。同时使用*args和**kwargs时，必须*args在**kwargs之前。
 
+#@property负责把一个方法变成属性调用。在对实例操作时，不暴露接口，而是通过getter和setter方法实现。
+
+
+class Student(object):
+    @property
+    def score(self):
+        return self.score
+
+    @score.setter
+    def score(self, value):
+        if not isinstance(value, int):
+            raise ValueError('score must be an intager')
+        if value<0 or value>100:
+            raise ValueError('score must between 0~100!')
+        self.score = value
+s = Student()
+s.score = 60
+print(s.core)
+
+
+
