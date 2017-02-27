@@ -119,4 +119,17 @@ for i in myyield(4):
 
 
 #闭包可以实现先将一个参数传递给一个函数，而并不立即执行，以达到延迟求值的目的。满足以下三个条件：必须有一个内嵌函数；内嵌函数必须引用外部函数中变量；外部函数返回值必须是内嵌函数。
-#
+
+def delay_fun(x, y):
+    def caculator():
+        return x+y
+    return calculator
+
+print('fanhuiqiuhehanshu...')
+
+msum = delay_fun(3, 4)
+print('diaoyongqiuhe:')
+print(msum())
+
+#*args表示任何多个无名参数，它是一个元组，**kwargs表示关键字参数，它是一个字典。同时使用*args和**kwargs时，必须*args在**kwargs之前。
+
