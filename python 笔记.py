@@ -154,3 +154,23 @@ print(s.core)
 
 
 
+Descriptors 
+
+descr__get__(self, obj, objtype=None) --> value
+
+descr.__set__(self, pbj, value) --> None
+
+descr.delete__(self, obj) --> None
+
+
+class RevealAccess(object):
+    def __get__(self, obj, objtype):
+        print('self in revealAccess: {}'.format(self))
+        print('self: {}\nobjtype: {}'.format(self, obj, obtype))
+
+
+class MyClass(object):
+    x = RevealAccess()
+    def test(self):
+        print('self in MyClass: {}'.format(self))
+
