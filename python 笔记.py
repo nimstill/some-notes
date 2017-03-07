@@ -174,3 +174,12 @@ class MyClass(object):
     def test(self):
         print('self in MyClass: {}'.format(self))
 
+conditions = (check_size, check_color, check_tone, check_flavor)
+return next(filter(None, map(lambda f: f(), conditions)), None)
+
+class A:
+    def __init__(self, **kwargs):
+        for key in kwargs:
+            setattr(self, key, kwargs[key])
+
+a = A(l=1,d=2)
