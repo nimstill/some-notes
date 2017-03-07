@@ -183,3 +183,23 @@ class A:
             setattr(self, key, kwargs[key])
 
 a = A(l=1,d=2)
+
+import decorator
+import inspect
+import sys
+
+@decorator.decorator
+def simple_init(func, self, *args, **kws):
+    @simple_init
+    def __init__(self,a,b,...,z)
+    dosomething()
+
+    def __init__(self,a,b,...,z)
+    self.a = a
+    self.b = b
+    ...
+    self.z = z
+
+
+
+
