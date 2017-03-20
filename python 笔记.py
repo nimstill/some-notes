@@ -228,3 +228,6 @@ if __name__ == '__main__':
         my_thread = threading.Thread(target=run, args=(i,))
         #一定不要忘记
         my_thread.start()
+
+
+        sadfsd
