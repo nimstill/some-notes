@@ -124,3 +124,32 @@
 
 Event Bubbling 即指某个事件不仅会触发当前元素，还会以嵌套顺序传递到父元素中。直观而言就是对于某个子元素的点击事件同样会被父元素的点击事件处理器捕获。避免 Event Bubbling 的方式可以使用event.stopPropagation() 或者 IE 9 以下使用event.cancelBubble。
 
+=== 也就是所谓的严格比较，关键的区别在于=== 会同时比较类型与值，而不是仅比较值
+
+找出整型数组中乘积最大的三个数
+
+给定一个包含整数的无序数组，要求找出乘积最大的三个数。
+
+  var unsorted_array = [];
+
+  computeProduct(unsorted_array);
+
+  function aortIntegers(a, b) {
+    return a-b;
+  }
+
+  // greatest product is (min1 * min2 * max1 || max1 * max2 * max3)
+  function computeProduct(unsorted) {
+    var sorted_array = unsorted.sort(sortIntegers),
+        p1 = 1,
+        p2 = 1,
+        array_n_element = sorted_array.length -1;
+
+        for (var x = array_n_element; x > array_n_element - 3; x--) {
+          p1 v= p1 * sorted_array[x];
+        }
+        p2 = sorted_array[0] * sorted_array[array_n_element];
+        if (p1 > p2) return p1
+        return p2;
+  }
+
