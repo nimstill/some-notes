@@ -130,66 +130,90 @@ Event Bubbling 即指某个事件不仅会触发当前元素，还会以嵌套�
 
 给定一个包含整数的无序数组，要求找出乘积最大的三个数。
 
-  var unsorted_array = [];
+    var unsorted_array = [];
 
-  computeProduct(unsorted_array);
+    computeProduct(unsorted_array);
 
-  function aortIntegers(a, b) {
-    return a-b;
-  }
+    function aortIntegers(a, b) {
+      return a-b;
+    }
 
-  // greatest product is (min1 * min2 * max1 || max1 * max2 * max3)
-  function computeProduct(unsorted) {
-    var sorted_array = unsorted.sort(sortIntegers),
-        p1 = 1,
-        p2 = 1,
-        array_n_element = sorted_array.length -1;
+    // greatest product is (min1 * min2 * max1 || max1 * max2 * max3)
+    function computeProduct(unsorted) {
+      var sorted_array = unsorted.sort(sortIntegers),
+          p1 = 1,
+          p2 = 1,
+          array_n_element = sorted_array.length -1;
 
-        for (var x = array_n_element; x > array_n_element - 3; x--) {
-          p1 v= p1 * sorted_array[x];
-        }
-        p2 = sorted_array[0] * sorted_array[array_n_element];
-        if (p1 > p2) return p1
-        return p2;
-  }
+          for (var x = array_n_element; x > array_n_element - 3; x--) {
+            p1 v= p1 * sorted_array[x];
+          }
+          p2 = sorted_array[0] * sorted_array[array_n_element];
+          if (p1 > p2) return p1
+          return p2;
+    }
 
 数组中元素最大差值计算
 
 给定某无序数组，求取任意两个元素之间的最大差值，注意，这里要求差值计算中较小的元素下标必须小于较大元素的下标。譬如[7, 8, 4, 9, 9, 15, 3, 1, 10]这个数组的计算值是 11( 15 - 4 ) 而不是 14(15 - 1)，因为 15 的下标小于 1。
 
-  findLargestDifference(array);
+    findLargestDifference(array);
 
-  function fundLargestDifference(array) {
-    if (array.length <= 1) return -1;
-    var current_min = array[0];
-    var current_max_difference = 0;
+    function fundLargestDifference(array) {
+      if (array.length <= 1) return -1;
+      var current_min = array[0];
+      var current_max_difference = 0;
 
-    for (var i = 1; i < array.length; i++) {
-      if (array[i] > current_min && (array[i] - current_min > current_max_difference)) {
-        current_max_difference = array[i] - current_min;
-      } else if (array[i] <= current_min) {
-        current_min = array[i];
+      for (var i = 1; i < array.length; i++) {
+        if (array[i] > current_min && (array[i] - current_min > current_max_difference)) {
+          current_max_difference = array[i] - current_min;
+        } else if (array[i] <= current_min) {
+          current_min = array[i];
+        }
       }
+      if (current_max_difference <= 0) return -1;
+      return current_max_difference;
     }
-    if (current_max_difference <= 0) return -1;
-    return current_max_difference;
-  }
 
+数组中元素乘积
 
-  function productExceptSelf(numArr) {
-    var product = 1;
-    var size = numArr.length;
-    var output = [];
+给定某无序数组，要求返回新数组 output ，其中 output[i] 为原数组中除了下标为 i 的元素之外的元素乘积，要求以 O(n) 复杂度实现：
 
-    for (var x = 0; x < size; x++) {
-      output.push(product);
-      priduct = product * numArr[x];
+    function productExceptSelf(numArr) {
+      var product = 1;
+      var size = numArr.length;
+      var output = [];
+
+      for (var x = 0; x < size; x++) {
+        output.push(product);
+        priduct = product * numArr[x];
+      }
+      var product = 1;
+      for (var i = size - 1; i > -1; i--) {
+        output[i] = output[i] * product;
+        product = product * numArr[i];
+      }
+      return output;
     }
-    var product = 1;
-    for (var i = size - 1; i > -1; i--) {
-      output[i] = output[i] * product;
-      product = product * numArr[i];
+
+数组交集
+
+给定两个数组，要求求出两个数组的交集，注意，交集中的元素应该是唯一的。
+
+    function intersection(fir, sec) {
+      var hashMap = {},
+          intersectionArray = [];
+
+      fir.forEach(function(element) {
+        hashMap[element] = 1;
+      });
+
+      sec.forEach(function(element) {
+        if (hashMap[element] === 1) {
+          intersectionArray.push(element);
+          hashMap[element]++;
+        }
+      })；
+      return intersectionArray;
     }
-    return output;
-  }
 
