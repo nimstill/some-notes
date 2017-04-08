@@ -217,3 +217,27 @@ Event Bubbling 即指某个事件不仅会触发当前元素，还会以嵌套�
       return intersectionArray;
     }
 
+颠倒字符串
+
+var string = "Welcome";
+
+var reverseEntireSentence = reverseBySeparaotr(string, "");
+
+var reverseEachWord = reverseBySeparator(reverseEntireSentence, "");
+
+function reverseBySeparator(string, separator) {
+  return string.split(separator).reverse().join(separator);
+}
+
+
+给定两个字符串，判断是否颠倒字母而成的字符串，譬如Mary与Army就是同字母而顺序颠倒
+
+
+var a = first.toLowerCase();
+var b = second.toLowerCase();
+
+a = a.split('').sort().join('');
+b = b.split('').sort().join('');
+
+return a===b;
+
