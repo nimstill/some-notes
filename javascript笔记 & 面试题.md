@@ -241,3 +241,7 @@ b = b.split('').sort().join('');
 
 return a===b;
 
+
+
+Undefined Null Boolean Number String
+
