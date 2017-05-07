@@ -242,6 +242,12 @@ b = b.split('').sort().join('');
 return a===b;
 
 
+空值（null ）
+未定义（undefined ）
+布尔值（boolean ）
+数字（number ）
+字符串（string ）
+对象（object ）
+符号（symbol ，ES6 中新增）
 
-Undefined Null Boolean Number String
 
