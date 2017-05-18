@@ -6,4 +6,7 @@
 
 #### Nodejs
 
+AST：Abstract Syntax Tree, 抽象语法树
+DI: Dependency Injection, 依赖注入
+
 
