@@ -240,3 +240,12 @@ if __name__ == '__main__':
 
 ###装饰器
 
+from functools import wraps, partial
+import logging
+
+def attach_wrapper(obj, func=None):
+    if func is None:
+        return partial(attach_wrapper,obj)
+    setattr(obj, func.__name__,func)
+    return func
+
