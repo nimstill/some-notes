@@ -123,3 +123,9 @@ function decimal(num, fix = 2) {
     return +num.toFixed(fix);
 }
 
+Const
+
+无变量提升
+有块级作用域
+禁止重复声明
+
