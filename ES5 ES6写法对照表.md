@@ -134,3 +134,29 @@ Const
 isInteger() 这个方法用来判断一个数是否为整数，返回布尔值。
 isNaN() 用来判断入参是否为 NaN
 
+    Array.from(document.querySelectorAll('*'));
+    from() 方法，该方法可以将一个类数组对象转换成一个真正的数组。
+
+new Array();        // => []
+new Array(4);       // => [,,,]
+new Array(4, 5, 6); // => [4, 5, 6]
+// After
+Array.of();         // => []
+Array.of(4);        // => [4]
+Array.of(4, 5, 6);  // => [4, 5, 6]
+
+entries()、keys()、values() 三个方法各自返回对应键值对、键、值的遍历器，可供循环结构使用。
+
+let target = {
+    a: 1,
+    b: 3
+};
+let source = {
+    b: 2,
+    c: 3
+};
+Object.assign(target, source); // => { a: 1, b: 2, c: 3}
+
+    使用位操作符也可以很方便的进行取整操作，例如：~~3.14 or 3.14 | 0
+
+
