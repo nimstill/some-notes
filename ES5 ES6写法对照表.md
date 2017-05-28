@@ -160,3 +160,16 @@ Object.assign(target, source); // => { a: 1, b: 2, c: 3}
     使用位操作符也可以很方便的进行取整操作，例如：~~3.14 or 3.14 | 0
 
 
+箭头函数
+    共享父级 this 对象
+    共享父级 arguments
+    不能当做构造函数
+
+var arr = [1, 2, 3, 4, 5, 6];
+// Before
+arr.filter(function(v) {
+    return v > 3;
+});
+// After
+arr.filter(v => v > 3); // => [4, 5, 6]
+
