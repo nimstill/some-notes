@@ -59,28 +59,28 @@ class Photo extends React.Component {
 
 从上面的例子里可以看到，给组件定义方法不再用 名字: function()的写法，而是直接用名字()，在方法的最后也不能有逗号了。
 
-//ES5 
-var Photo = React.createClass({
-    componentWillMount: function(){
+    //ES5 
+    var Photo = React.createClass({
+        componentWillMount: function(){
 
-    },
-    render: function() {
-        return (
-            <Image source={this.props.source} />
-        );
-    },
-});
-//ES6
-class Photo extends React.Component {
-    componentWillMount() {
+        },
+        render: function() {
+            return (
+                <Image source={this.props.source} />
+            );
+        },
+    });
+    //ES6
+    class Photo extends React.Component {
+        componentWillMount() {
 
+        }
+        render() {
+            return (
+                <Image source={this.props.source} />
+            );
+        }
     }
-    render() {
-        return (
-            <Image source={this.props.source} />
-        );
-    }
-}
 
 定义组件的属性类型和默认属性
 
@@ -88,24 +88,24 @@ class Photo extends React.Component {
 
 在ES6里，可以统一使用static成员来实现
 
-//ES6
-class Video extends React.Component {
-    static defaultProps = {
-        autoPlay: false,
-        maxLoops: 10,
-    };  // 注意这里有分号
-    static propTypes = {
-        autoPlay: React.PropTypes.bool.isRequired,
-        maxLoops: React.PropTypes.number.isRequired,
-        posterFrameSrc: React.PropTypes.string.isRequired,
-        videoSrc: React.PropTypes.string.isRequired,
-    };  // 注意这里有分号
-    render() {
-        return (
-            <View />
-        );
-    } // 注意这里既没有分号也没有逗号
-}
+    //ES6
+    class Video extends React.Component {
+        static defaultProps = {
+            autoPlay: false,
+            maxLoops: 10,
+        };  // 注意这里有分号
+        static propTypes = {
+            autoPlay: React.PropTypes.bool.isRequired,
+            maxLoops: React.PropTypes.number.isRequired,
+            posterFrameSrc: React.PropTypes.string.isRequired,
+            videoSrc: React.PropTypes.string.isRequired,
+        };  // 注意这里有分号
+        render() {
+            return (
+                <View />
+            );
+        } // 注意这里既没有分号也没有逗号
+    }
 
 注意: 对React开发者而言，static成员在IE10及之前版本不能被继承，而在IE11和其它浏览器上可以，这有时候会带来一些问题。React Native开发者可以不用担心这个问题。
 
@@ -182,4 +182,20 @@ arr.map((v, k, thisArr) => {
     某些情况下我们可能需要函数有自己的 this，例如 DOM 事件绑定时事件回调函数中，我们往往需要使用 this 来操作当前的 DOM，这时候就需要使用传统匿名函数而非箭头函数。
     在严格模式下，如果箭头函数的上层函数均为箭头函数，那么 this 对象将不可用。
     另，由于箭头函数没有自己的 this 对象，所以箭头函数不能当做构造函数。
+
+    function getSum() {
+        var example = () => {
+        return Array
+            .prototype
+            .reduce
+            .call(arguments, (pre, cur) => pre + cur);
+        }
+        return example();
+    }
+    getSum(1, 2, 3); // =>6
+
+---
+继承
+模块
+
 
