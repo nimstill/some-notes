@@ -206,3 +206,7 @@ if (typeof window !== 'undefined' && window.Vue) {
 
 
 
+
+
+Vue组件接收交互行为，调用dispatch方法触发action相关处理，若页面状态需要改变，则调用commit方法提交mutation修改state，通过getters获取到state新值，重新渲染Vue Components，界面随之更新。
+
