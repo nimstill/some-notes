@@ -249,3 +249,18 @@ def attach_wrapper(obj, func=None):
     setattr(obj, func.__name__,func)
     return func
 
+
+def outer():
+    def inner():
+        print('log on')
+        func() #yewu
+        print('log end')
+    return inner
+
+def foo():
+    print('foo')
+
+foo = outer(foo)
+foo()
+
+outer 是一个装饰器 装饰器是一个带有函数作为参数并返回一个新函数的闭包
