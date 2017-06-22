@@ -34,3 +34,9 @@ flex: flex布局，继 table 和 div 后的趋势，不了解或不熟悉的可�
 columns: 分栏布局。
 will-change: 改善渲染性能, 参考使用CSS3 will-change提高页面滚动、动画等渲染性能。
 
+
+BFC: ‘Block Formatting Context’, BFC 表现原则: 内部子元素再怎么翻江倒海，翻云覆雨都不会影响外部的元素,自成一方天地。
+
+IFC: Inline Formatting Contexts, 直译为”内联格式化上下文”,个人理解为行内盒子模型。
+
+
